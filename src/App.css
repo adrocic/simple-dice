@@ -1,0 +1,17 @@
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: #fff9ec;
+}
+
+.page-title {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
+
+

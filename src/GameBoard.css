@@ -1,0 +1,38 @@
+.Board {
+    height: 70%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    
+}
+
+.Dice-Container {
+    display: flex;
+    flex-direction: row;
+}
+
+.Board button {
+  font-size: 2em;
+  font-weight: bold;
+  background: #36d5e0;
+  border-radius: 10px;
+  color: rgb(48, 48, 48);
+  height: 100px;
+  width: 300px;
+  border: none;
+  box-shadow: 0 8px #1b6a70;
+  outline: none;
+}
+
+#antiflicker:hover button {
+    cursor: pointer;
+    box-shadow: 0 6px #1b6a70;
+    transform: translate(0px, 2px);
+  }
+  
+#antiflicker:active button {
+    box-shadow: 0 0px;
+    transform: translate(0px, 8px);
+  }
