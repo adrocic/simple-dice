@@ -1,44 +1,65 @@
 import React, { useState } from 'react'
 import './GameBoard.css'
 import Dice from './Dice.js'
+import {FaMinusSquare, FaPlusSquare} from 'react-icons/fa';
 
 const Gameboard = () => {
     
-    const [sides] = useState(["dice-one","dice-two", "dice-three", "dice-four", "dice-five", "dice-six"]);
-    const [index1, setIndex1] = useState(0);
-    const [index2, setIndex2] = useState(1);
-    const[total, setTotal] = useState(3);
-    const [die1, setDie1] = useState("dice-one");
-    const [die2, setDie2] = useState("dice-two");
+    const sides = ["dice-one","dice-two", "dice-three", "dice-four", "dice-five", "dice-six"];
+    const [total, setTotal] = useState(3);
+    const [dieFaces, setDieFaces] = useState(['dice-one', 'dice-two']);
     const [rolling, setRolling] = useState(false);
 
     const toRollorNotToRollThatIsTheQuestion = rolling ? "Rolling..." : "Roll Dice!";
 
-    const roll = () => {
-        setIndex1(Math.floor(Math.random(100) * 6));
-        setIndex2(Math.floor(Math.random(100) * 6));
-        const newDie1 = sides[index1];
-        const newDie2 = sides[index2];
+    const rollDie = () => {
         setRolling(true);
+        const randomFaces = [];
+        dieFaces.forEach((index) => {
+            const randomIndex = (Math.floor(Math.random(100) * 6))
+            randomFaces.push(sides[randomIndex])
+        })
+        
         
         setTimeout(() => {
-            setDie1(newDie1);
-            setDie2(newDie2);
+            setTotal(() => randomFaces.reduce((total, sum) => total + sum))
+            setDieFaces(randomFaces)
             setRolling(false);
-            setTotal(index1 + index2 + 2)
         }, 1000);
     }
+
+    const addDie = () => {
+        if(dieFaces.length < 8 ) {
+            setDieFaces(dieFaces => [...dieFaces, "dice-one"])
+        }
+
+    };
+
+    const removeDie = () => {
+        if(dieFaces.length > 1) {
+            dieFaces.splice(0,1)
+            setDieFaces([...dieFaces])
+        }
+        
+    };
 
     return (
         <div className="Board">
             <div className="Dice-Container">
-                <Dice face={die1} rolling={rolling}/>
-                <Dice face={die2} rolling={rolling}/>
-                <p>{total}</p>
+                <Dice dieFaces={dieFaces} rolling={rolling}/>
             </div>
-            <div className="roll-button" id="antiflicker">
-                <button onClick={roll} disabled={rolling}>{toRollorNotToRollThatIsTheQuestion}</button>
+            <div className="button-container">
+                <div id="antiflicker">
+                    <button className={rolling ? "disabled-button" : "add-subtract-button"} onClick={removeDie} disabled={rolling}><FaMinusSquare size={50}/></button>
+                </div>
+                <div id="antiflicker">
+                    <button className={rolling ? "disabled-button" : "roll-button"} onClick={rollDie} disabled={rolling}>{toRollorNotToRollThatIsTheQuestion}</button>
+                </div>
+                <div id="antiflicker">
+                    <button className={rolling ? "disabled-button" : "add-subtract-button"} onClick={addDie} disabled={rolling}><FaPlusSquare size={50} /></button>
+                </div>
             </div>
+            
         </div>
     )
 }

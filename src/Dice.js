@@ -12,10 +12,12 @@ import { faDiceSix } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix);
 
-const Dice = (props) => {
+const Dice = ({ rolling, dieFaces, numberOfDie }) => {
     return (
         <div>
-            <FontAwesomeIcon className={`die ${props.rolling && "rolling"}`} icon={`${props.face}`} size="10x"/>
+            {dieFaces.map((face) => {
+                return <FontAwesomeIcon className={`die ${rolling && "rolling"}`} icon={`${face}`} size="10x"/>
+            })}
         </div>
     )
 }
